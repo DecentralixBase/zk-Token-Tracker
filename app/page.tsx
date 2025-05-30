@@ -5,10 +5,18 @@ import TokenSearch from '../components/TokenSearch';
 import TokenTable from '../components/TokenTable';
 import { useWatchlist } from '../hooks/useWatchlist';
 import TopGainers from '../components/TopGainers';
+import FullScreenLoader from '../components/FullScreenLoader';
 
 export default function Home() {
   const { watchlist, loading, addToken, removeToken } = useWatchlist();
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
+
+  // Simulate initial app loading
+  useEffect(() => {
+    const timer = setTimeout(() => setShowLoader(false), 1800);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Initialize dark mode based on system preference
   useEffect(() => {
@@ -25,6 +33,7 @@ export default function Home() {
 
   return (
     <main className={`min-h-screen p-0 sm:p-0 ${isDarkMode ? 'dark' : ''} bg-gray-50 dark:bg-gray-900`}> 
+      {showLoader && <FullScreenLoader />}
       <div className="w-full min-h-screen flex flex-col">
         {/* Header */}
         <header className="w-full px-6 py-4 flex items-center justify-between bg-white dark:bg-gray-950 shadow-sm sticky top-0 z-20">
