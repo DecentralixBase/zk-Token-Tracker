@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import TokenSearch from '../components/TokenSearch';
 import TokenTable from '../components/TokenTable';
 import { useWatchlist } from '../hooks/useWatchlist';
+import TopGainers from '../components/TopGainers';
 
 export default function Home() {
   const { watchlist, loading, addToken, removeToken } = useWatchlist();
@@ -23,31 +24,46 @@ export default function Home() {
   };
 
   return (
-    <main className={`min-h-screen p-4 sm:p-8 ${isDarkMode ? 'dark' : ''}`}>
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-            Token Watchlist
-          </h1>
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            {isDarkMode ? '🌞' : '🌙'}
-          </button>
-        </div>
-
-        <div className="mb-8">
-          <TokenSearch onTokenSelect={addToken} />
-        </div>
-
-        {loading ? (
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-white mx-auto"></div>
+    <main className={`min-h-screen p-0 sm:p-0 ${isDarkMode ? 'dark' : ''} bg-gray-50 dark:bg-gray-900`}> 
+      <div className="w-full min-h-screen flex flex-col">
+        {/* Header */}
+        <header className="w-full px-6 py-4 flex items-center justify-between bg-white dark:bg-gray-950 shadow-sm sticky top-0 z-20">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-extrabold text-blue-600 tracking-tight">zk Token Tracker</span>
           </div>
-        ) : (
-          <TokenTable tokens={watchlist} onRemove={removeToken} />
-        )}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              title="Toggle dark mode"
+            >
+              {isDarkMode ? '🌞' : '🌙'}
+            </button>
+          </div>
+        </header>
+
+        {/* Main Dashboard */}
+        <div className="flex-1 w-full max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar (optional, can add trending, etc.) */}
+          <aside className="hidden lg:block col-span-1">
+            {/* Placeholder for future sidebar content */}
+          </aside>
+
+          {/* Main Content */}
+          <section className="col-span-1 lg:col-span-3 flex flex-col gap-8">
+            <TopGainers />
+            <div className="mb-8">
+              <TokenSearch onTokenSelect={addToken} />
+            </div>
+            {loading ? (
+              <div className="text-center py-8">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-white mx-auto"></div>
+              </div>
+            ) : (
+              <TokenTable tokens={watchlist} onRemove={removeToken} />
+            )}
+          </section>
+        </div>
       </div>
     </main>
   );
