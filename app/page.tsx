@@ -6,11 +6,15 @@ import TokenTable from '../components/TokenTable';
 import { useWatchlist } from '../hooks/useWatchlist';
 import TopGainers from '../components/TopGainers';
 import FullScreenLoader from '../components/FullScreenLoader';
+import AuthModal from '../components/AuthModal';
 
 export default function Home() {
   const { watchlist, loading, addToken, removeToken } = useWatchlist();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showChartModal, setShowChartModal] = useState(false);
+  const [selectedToken, setSelectedToken] = useState<string | null>(null);
 
   // Simulate initial app loading
   useEffect(() => {
@@ -34,6 +38,16 @@ export default function Home() {
   return (
     <main className={`min-h-screen p-0 sm:p-0 ${isDarkMode ? 'dark' : ''} bg-gray-50 dark:bg-gray-900`}> 
       {showLoader && <FullScreenLoader />}
+      <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} />
+      {/* Auth Modal Trigger */}
+      <button
+        className="fixed top-6 right-24 z-30 px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+        onClick={() => setShowAuthModal(true)}
+      >
+        Login / Signup
+      </button>
+      {/* Chart Modal Trigger Example (for demo) */}
+      {/* <button onClick={() => { setShowChartModal(true); setSelectedToken('bitcoin'); }}>Show Chart</button> */}
       <div className="w-full min-h-screen flex flex-col">
         {/* Header */}
         <header className="w-full px-6 py-4 flex items-center justify-between bg-white dark:bg-gray-950 shadow-sm sticky top-0 z-20">
