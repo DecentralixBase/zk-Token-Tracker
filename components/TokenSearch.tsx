@@ -58,7 +58,7 @@ export default function TokenSearch({ onTokenSelect }: TokenSearchProps) {
           setQuery(e.target.value);
           setShowDropdown(true);
         }}
-        placeholder="Search tokens..."
+        placeholder="Add tokens to watchlist"
         className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
       />
       

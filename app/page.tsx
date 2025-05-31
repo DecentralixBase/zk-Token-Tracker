@@ -74,10 +74,10 @@ export default function Home() {
 
           {/* Main Content */}
           <section className="col-span-1 lg:col-span-3 flex flex-col gap-8">
-            <TopGainers />
             <div className="mb-8">
               <TokenSearch onTokenSelect={addToken} />
             </div>
+            <TopGainers />
             {loading ? (
               <div className="text-center py-8">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-white mx-auto"></div>
