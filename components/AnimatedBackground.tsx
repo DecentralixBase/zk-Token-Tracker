@@ -3,29 +3,69 @@ import React from 'react';
 export default function AnimatedBackground() {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      {/* Animated gradient blobs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 opacity-30 rounded-full blur-3xl animate-blob1" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-gradient-to-br from-pink-500 via-yellow-500 to-blue-500 opacity-20 rounded-full blur-3xl animate-blob2" />
-      <div className="absolute top-[30%] right-[-15%] w-[40vw] h-[40vw] bg-gradient-to-tl from-green-400 via-blue-400 to-purple-400 opacity-20 rounded-full blur-3xl animate-blob3" />
+      {/* Neon animated thunder/lightning SVG */}
+      <svg className="absolute left-0 top-0 w-full h-full" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Neon lightning bolt 1 */}
+        <polyline
+          points="400,100 500,300 450,300 600,600 550,600 700,900"
+          stroke="#00fff7"
+          strokeWidth="8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="animate-lightning1 neon-glow"
+        />
+        {/* Neon lightning bolt 2 */}
+        <polyline
+          points="1200,200 1300,400 1250,400 1400,700 1350,700 1500,1000"
+          stroke="#ff00e0"
+          strokeWidth="8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="animate-lightning2 neon-glow"
+        />
+        {/* Neon arc */}
+        <path
+          d="M200 900 Q960 200 1720 900"
+          stroke="#00ff99"
+          strokeWidth="6"
+          fill="none"
+          className="neon-glow animate-arc"
+        />
+      </svg>
       <style jsx global>{`
-        @keyframes blob1 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(20vw, 10vh) scale(1.1); }
-          66% { transform: translate(-10vw, 5vh) scale(0.95); }
+        .neon-glow {
+          filter: drop-shadow(0 0 16px #00fff7) drop-shadow(0 0 32px #00fff7);
         }
-        @keyframes blob2 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(-10vw, -10vh) scale(1.05); }
-          66% { transform: translate(10vw, 10vh) scale(1.1); }
+        .animate-lightning1 {
+          stroke-dasharray: 1200;
+          stroke-dashoffset: 1200;
+          animation: lightning1 2.5s cubic-bezier(0.4,0,0.2,1) infinite;
         }
-        @keyframes blob3 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(-10vw, 10vh) scale(1.1); }
-          66% { transform: translate(10vw, -10vh) scale(0.9); }
+        .animate-lightning2 {
+          stroke-dasharray: 1200;
+          stroke-dashoffset: 1200;
+          animation: lightning2 3.2s cubic-bezier(0.4,0,0.2,1) infinite 1.2s;
         }
-        .animate-blob1 { animation: blob1 18s ease-in-out infinite; }
-        .animate-blob2 { animation: blob2 22s ease-in-out infinite; }
-        .animate-blob3 { animation: blob3 20s ease-in-out infinite; }
+        .animate-arc {
+          stroke-dasharray: 2000;
+          stroke-dashoffset: 2000;
+          animation: arcglow 4s cubic-bezier(0.4,0,0.2,1) infinite 0.5s;
+        }
+        @keyframes lightning1 {
+          0%, 80%, 100% { stroke-dashoffset: 1200; opacity: 0.2; }
+          10%, 20% { stroke-dashoffset: 0; opacity: 1; }
+          30%, 70% { stroke-dashoffset: 1200; opacity: 0.2; }
+        }
+        @keyframes lightning2 {
+          0%, 85%, 100% { stroke-dashoffset: 1200; opacity: 0.2; }
+          15%, 25% { stroke-dashoffset: 0; opacity: 1; }
+          35%, 80% { stroke-dashoffset: 1200; opacity: 0.2; }
+        }
+        @keyframes arcglow {
+          0%, 90%, 100% { stroke-dashoffset: 2000; opacity: 0.1; }
+          10%, 20% { stroke-dashoffset: 0; opacity: 0.7; }
+          30%, 80% { stroke-dashoffset: 2000; opacity: 0.1; }
+        }
       `}</style>
     </div>
   );
